@@ -12,19 +12,21 @@
 
 namespace FoF\Upload\Templates;
 
-class FileTemplate extends AbstractTextFormatterTemplate
+use FoF\Upload\File;
+
+class AudioEmbedTemplate extends AbstractTemplate
 {
     /**
      * @var string
      */
-    protected $tag = 'file';
+    protected $tag = 'audio-embed';
 
     /**
      * {@inheritdoc}
      */
     public function name(): string
     {
-        return $this->trans('fof-upload.admin.templates.file');
+        return '音频渲染';
     }
 
     /**
@@ -32,22 +34,15 @@ class FileTemplate extends AbstractTextFormatterTemplate
      */
     public function description(): string
     {
-        return $this->trans('fof-upload.admin.templates.file_description');
+        return '渲染音频';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function template(): string
+    public function preview(File $file): string
     {
-        return $this->getView('fof-upload.templates::file');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function bbcode(): string
-    {
-        return '[upl-file uuid={IDENTIFIER} size={SIMPLETEXT2}]{SIMPLETEXT1}[/upl-file]';
+        $audioext = pathinfo($file->base_name, PATHINFO_EXTENSION);
+        return '[audio '.$audioext.'='.$file->url.' download=download]';
     }
 }

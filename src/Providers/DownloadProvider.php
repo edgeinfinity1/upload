@@ -23,6 +23,8 @@ use FoF\Upload\Templates\ImageTemplate;
 use FoF\Upload\Templates\JustUrlTemplate;
 use FoF\Upload\Templates\MarkdownImageTemplate;
 use FoF\Upload\Templates\TextPreviewTemplate;
+use FoF\Upload\Templates\AudioEmbedTemplate;
+use FoF\Upload\Templates\VideoEmbedTemplate;
 
 class DownloadProvider extends AbstractServiceProvider
 {
@@ -42,5 +44,8 @@ class DownloadProvider extends AbstractServiceProvider
         $util->addRenderTemplate($this->container->make(MarkdownImageTemplate::class));
         $util->addRenderTemplate($this->container->make(BbcodeImageTemplate::class));
         $util->addRenderTemplate($this->container->make(TextPreviewTemplate::class));
+        $util->addRenderTemplate($this->container->make(AudioEmbedTemplate::class));
+        $util->addRenderTemplate($this->container->make(VideoEmbedTemplate::class));
+
     }
 }

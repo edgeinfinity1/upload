@@ -12,19 +12,20 @@
 
 namespace FoF\Upload\Templates;
 
-class FileTemplate extends AbstractTextFormatterTemplate
+use FoF\Upload\File;
+
+class VideoEmbedTemplate extends AbstractTemplate
 {
     /**
      * @var string
      */
-    protected $tag = 'file';
-
+    protected $tag = 'video-embed';
     /**
      * {@inheritdoc}
      */
     public function name(): string
     {
-        return $this->trans('fof-upload.admin.templates.file');
+        return '视频渲染';
     }
 
     /**
@@ -32,22 +33,14 @@ class FileTemplate extends AbstractTextFormatterTemplate
      */
     public function description(): string
     {
-        return $this->trans('fof-upload.admin.templates.file_description');
+        return '调用embed video插件渲染视频';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function template(): string
+    public function preview(File $file): string
     {
-        return $this->getView('fof-upload.templates::file');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function bbcode(): string
-    {
-        return '[upl-file uuid={IDENTIFIER} size={SIMPLETEXT2}]{SIMPLETEXT1}[/upl-file]';
+        return '[embed-video id="'.rand(100000,999999).'" url="'.$file->url.'" type="normal" live="false" qualities=""]';
     }
 }

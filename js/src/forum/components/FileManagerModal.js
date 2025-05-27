@@ -153,8 +153,17 @@ export default class FileManagerModal extends Modal {
     // Add selected files to composer
     this.selectedFiles.map((fileId) => {
       const file = app.store.getById('files', fileId);
-
-      app.composer.editor.insertAtCursor(file.bbcode() + '\n', false);
+//Brutal fix by edge
+      if (app.composer.editor.getLastNChars(1) == '\n' || app.composer.editor.getLastNChars(1) == '') {
+          if (this.attrs.composer.editor.getLastNChars(1) == '') {
+              this.attrs.composer.editor.insertAtCursor('\n', false);
+          }
+          app.composer.editor.insertAtCursor(file.bbcode() + '\n', false);
+      }
+      else {
+          app.composer.editor.insertAtCursor(' ', true);
+          app.composer.editor.insertAtCursor(file.bbcode() + '\n', false);
+      }
     });
   }
 }

@@ -32,8 +32,8 @@ export default class UploadButton extends Component {
             'Button',
             'hasIcon',
             'fof-upload-button',
-            !this.isMediaUploadButton && !this.attrs.uploader.uploading && 'Button--icon',
-            !this.isMediaUploadButton && !this.attrs.uploader.uploading && 'Button--link',
+            /*!this.isMediaUploadButton && !this.attrs.uploader.uploading && */'Button--icon',
+            //!this.isMediaUploadButton && !this.attrs.uploader.uploading && 'Button--link',
             this.attrs.uploader.uploading && 'uploading',
           ])}
           icon={!this.attrs.uploader.uploading && 'fas fa-file-upload'}

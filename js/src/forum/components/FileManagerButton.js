@@ -11,7 +11,7 @@ export default class FileManagerButton extends Component {
         {Button.component({
           className: 'Button fof-upload-button Button--icon',
           onclick: this.fileManagerButtonClicked.bind(this),
-          icon: 'fas fa-photo-video',
+          icon: 'fas fa-file-check',
         })}
       </Tooltip>
     );

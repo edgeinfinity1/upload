@@ -16,38 +16,21 @@ use Flarum\Foundation\Paths;
 use FoF\Upload\Repositories\FileRepository;
 use s9e\TextFormatter\Renderer;
 use s9e\TextFormatter\Utils;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FormatTextPreview
 {
-    /**
-     * @var FileRepository
-     */
-    private $files;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @var Paths
-     */
-    private $paths;
-
-    public function __construct(FileRepository $files, TranslatorInterface $translator, Paths $paths)
-    {
-        $this->files = $files;
-        $this->translator = $translator;
-        $this->paths = $paths;
+    public function __construct(
+        private FileRepository $files,
+        private Paths $paths
+    ) {
     }
 
     /**
      * Configure rendering for text preview uploads.
      *
-     * @param s9e\TextFormatter\Renderer $renderer
-     * @param mixed                      $context
-     * @param string|null                $xml
+     * @param Renderer $renderer
+     * @param mixed    $context
+     * @param string   $xml
      *
      * @return string $xml to be rendered
      */
@@ -61,17 +44,14 @@ class FormatTextPreview
 
             if ($file) {
                 $file_contents = file_get_contents($this->paths->public.'/assets/files/'.$file->path);
+                $lines = preg_split('/\R/', $file_contents);
+                $lines = array_filter($lines, 'trim');
 
-                $file_contents_normalised = str_replace(["\r\n", "\r", "\n"], "\n", $file_contents);
-
-                // automatically normalises line endings
-                $lines = explode("\n", $file_contents_normalised);
-                $first_five_lines = array_slice($lines, 0, 5);
-                $snippet = implode("\n", $first_five_lines);
-
-                if ($snippet !== $file_contents_normalised) {
+                if (count($lines) <= 5) {
                     $attributes['has_snippet'] = 'false';
                 }
+
+                $snippet = implode("\n", array_slice($lines, 0, 5));
             }
 
             $attributes['snippet'] = $snippet;

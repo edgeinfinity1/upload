@@ -47,7 +47,7 @@ app.initializers.add('fof-upload', () => {
         LinkButton.component(
           {
             href: app.route('user.uploads', {
-              username: this.user.username(),
+              username: this.user.slug(),
             }),
             name: 'uploads',
             icon: 'fas fa-file-upload',

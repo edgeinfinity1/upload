@@ -42,8 +42,18 @@ export default function () {
 
     this.uploader.on('success', ({ file, addBBcode }) => {
       if (!addBBcode) return;
-
-      this.attrs.composer.editor.insertAtCursor(file.bbcode() + '\n', false);
+//Brutal fix by edge
+      if (this.attrs.composer.editor.getLastNChars(1) == '\n' || this.attrs.composer.editor.getLastNChars(1) == '') {
+          if (this.attrs.composer.editor.getLastNChars(1) == '') {
+              this.attrs.composer.editor.insertAtCursor('\n', false);
+          }
+          this.attrs.composer.editor.insertAtCursor(file.bbcode() + '\n', false);
+      }
+      else {
+          this.attrs.composer.editor.insertAtCursor(' ', true);
+          this.attrs.composer.editor.insertAtCursor('\n' + file.bbcode() + '\n', false);
+      }
+      
 
       // We wrap this in a typeof check to prevent it running when a user
       // is creating a new discussion. There's nothing to preview in a new
