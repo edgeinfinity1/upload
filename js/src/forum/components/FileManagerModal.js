@@ -155,8 +155,8 @@ export default class FileManagerModal extends Modal {
       const file = app.store.getById('files', fileId);
 //Brutal fix by edge
       if (app.composer.editor.getLastNChars(1) == '\n' || app.composer.editor.getLastNChars(1) == '') {
-          if (this.attrs.composer.editor.getLastNChars(1) == '') {
-              this.attrs.composer.editor.insertAtCursor('\n', false);
+          if (app.composer.editor.getLastNChars(1) == '') {
+              app.composer.editor.getLastNChars(1)('\n', false);
           }
           app.composer.editor.insertAtCursor(file.bbcode() + '\n', false);
       }

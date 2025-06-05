@@ -574,8 +574,6 @@ var FileManagerModal = /*#__PURE__*/function (_Modal) {
   ;
 
   _proto.onSelect = function onSelect() {
-    var _this3 = this;
-
     this.hide(); // Custom callback
 
     if (this.attrs.onSelect) {
@@ -588,8 +586,8 @@ var FileManagerModal = /*#__PURE__*/function (_Modal) {
       var file = app.store.getById('files', fileId); //Brutal fix by edge
 
       if (app.composer.editor.getLastNChars(1) == '\n' || app.composer.editor.getLastNChars(1) == '') {
-        if (_this3.attrs.composer.editor.getLastNChars(1) == '') {
-          _this3.attrs.composer.editor.insertAtCursor('\n', false);
+        if (app.composer.editor.getLastNChars(1) == '') {
+          app.composer.editor.getLastNChars(1)('\n', false);
         }
 
         app.composer.editor.insertAtCursor(file.bbcode() + '\n', false);
