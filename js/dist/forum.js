@@ -587,7 +587,7 @@ var FileManagerModal = /*#__PURE__*/function (_Modal) {
 
       if (app.composer.editor.getLastNChars(1) == '\n' || app.composer.editor.getLastNChars(1) == '') {
         if (app.composer.editor.getLastNChars(1) == '') {
-          app.composer.editor.getLastNChars(1)('\n', false);
+          app.composer.editor.insertAtCursor('\n', false);
         }
 
         app.composer.editor.insertAtCursor(file.bbcode() + '\n', false);
