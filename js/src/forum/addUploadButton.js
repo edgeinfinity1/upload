@@ -42,17 +42,12 @@ export default function () {
 
     this.uploader.on('success', ({ file, addBBcode }) => {
       if (!addBBcode) return;
-//Brutal fix by edge
-      if (this.attrs.composer.editor.getLastNChars(1) == '\n' || this.attrs.composer.editor.getLastNChars(1) == '') {
-          if (this.attrs.composer.editor.getLastNChars(1) == '') {
-              this.attrs.composer.editor.insertAtCursor('\n', false);
-          }
-          this.attrs.composer.editor.insertAtCursor(file.bbcode() + '\n', false);
-      }
-      else {
-          this.attrs.composer.editor.insertAtCursor(' ', true);
-          this.attrs.composer.editor.insertAtCursor('\n' + file.bbcode() + '\n', false);
-      }
+
+      const cursorPosition = this.attrs.composer.editor.getSelectionRange()[0];
+      const preceding = this.attrs.composer.fields.content().slice(0, cursorPosition);
+      const precedingNewlines = preceding.length == 0 ? 0 : 3 - preceding.match(/(\n{0,2})$/)[0].length;
+
+      this.attrs.composer.editor.insertAtCursor(Array(precedingNewlines).join('\n') + file.bbcode() + '\n', false);
       
 
       // We wrap this in a typeof check to prevent it running when a user

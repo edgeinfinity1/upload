@@ -44,12 +44,13 @@ class FormatTextPreview
 
             if ($file) {
                 $file_contents = file_get_contents($this->paths->public.'/assets/files/'.$file->path);
-                $lines = preg_split('/\R/', $file_contents);
+                $lines = mb_split('\R', $file_contents);
                 $lines = array_filter($lines, 'trim');
 
                 if (count($lines) <= 5) {
                     $attributes['has_snippet'] = 'false';
                 }
+                
 
                 $snippet = implode("\n", array_slice($lines, 0, 5));
             }
