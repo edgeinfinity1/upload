@@ -44,7 +44,7 @@ class FormatTextPreview
 
             if ($file) {
                 $file_contents = file_get_contents($this->paths->public.'/assets/files/'.$file->path);
-                $lines = mb_split('\R', $file_contents);
+                $lines = preg_split('/\R/', $file_contents);
                 $lines = array_filter($lines, 'trim');
 
                 if (count($lines) <= 5) {
