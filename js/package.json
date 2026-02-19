@@ -6,6 +6,7 @@
         "@flarum/prettier-config": "^1.0.0",
         "flarum-tsconfig": "^1.0.2",
         "flarum-webpack-config": "^2.0.0",
+        "npm-check-updates": "^19.2.0",
         "webpack": "^5.88.2"
     },
     "devDependencies": {
