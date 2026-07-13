@@ -47,6 +47,6 @@ class ImageTemplate extends AbstractTextFormatterTemplate
      */
     public function bbcode(): string
     {
-        return '\n[upl-image uuid={IDENTIFIER} size={SIMPLETEXT2} url={URL}]{SIMPLETEXT1}[/upl-image]';
+        return PHP_EOL . '[upl-image uuid={IDENTIFIER} size={SIMPLETEXT2} url={URL}]{SIMPLETEXT1}[/upl-image]';
     }
 }
