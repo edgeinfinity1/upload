@@ -42,6 +42,6 @@ class AudioEmbedTemplate extends AbstractTemplate
      */
     public function preview(File $file): string
     {
-        return '[player title=' . $file->base_name . ']' . $file->url . '[/player]';
+        return '\n[player title=' . $file->base_name . ']' . $file->url . '[/player]';
     }
 }

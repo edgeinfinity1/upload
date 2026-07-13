@@ -41,6 +41,6 @@ class VideoEmbedTemplate extends AbstractTemplate
      */
     public function preview(File $file): string
     {
-        return '[embed-video id="'.rand(100000,999999).'" url="'.$file->url.'" type="normal" live="false" qualities=""]';
+        return '\n[embed-video id="'.rand(100000,999999).'" url="'.$file->url.'" type="normal" live="false" qualities=""]';
     }
 }
