@@ -31,6 +31,8 @@ class UtilProvider extends AbstractServiceProvider
             $util->addRenderTemplate($container->make(Templates\MarkdownImageTemplate::class));
             $util->addRenderTemplate($container->make(Templates\BbcodeImageTemplate::class));
             $util->addRenderTemplate($container->make(Templates\TextPreviewTemplate::class));
+            $util->addRenderTemplate($container->make(Templates\AudioEmbedTemplate::class));
+            $util->addRenderTemplate($container->make(Templates\VideoEmbedTemplate::class));
 
             return $util;
         });
