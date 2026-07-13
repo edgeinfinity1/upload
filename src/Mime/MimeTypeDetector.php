@@ -78,17 +78,22 @@ class MimeTypeDetector
 
             // Reject if MIME mismatch occurs (AFTER checking for APKs)
             if ($detectorMime !== $fileinfoMime) {
-                $message = "MIME type mismatch detected: $detectorMime vs $fileinfoMime";
-                resolve('log')->error("[fof/upload] $message");
+                if (
+                    str_replace("x-", "", $detectorMime)
+                    !== str_replace("x-", "", $fileinfoMime)
+                ) {
+                    $message = "MIME type mismatch detected: $detectorMime vs $fileinfoMime";
+                    resolve('log')->error("[fof/upload] $message");
 
-                // Check if the file exists, if it does, delete it.
-                if (file_exists($this->filePath)) {
-                    unlink($this->filePath);
+                    // Check if the file exists, if it does, delete it.
+                    if (file_exists($this->filePath)) {
+                        unlink($this->filePath);
+                    }
+
+                    throw new ValidationException([
+                        'upload' => $message,
+                    ]);
                 }
-
-                throw new ValidationException([
-                    'upload' => $message,
-                ]);
             }
 
             return $detectorMime;

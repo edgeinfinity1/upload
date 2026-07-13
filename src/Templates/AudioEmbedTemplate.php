@@ -43,6 +43,6 @@ class AudioEmbedTemplate extends AbstractTemplate
     public function preview(File $file): string
     {
         $audioext = pathinfo($file->base_name, PATHINFO_EXTENSION);
-        return '[player]'.$file->url.'[/player]';
+        return '[' . $file->base_name . '](' . $file->url . ')';
     }
 }
