@@ -1,6 +1,6 @@
 import app from 'flarum/forum/app';
 import Component from 'flarum/common/Component';
-import TextEditorButton from 'flarum/common/components/TextEditorButton';
+import Button from 'flarum/common/components/Button';
 import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
 import classList from 'flarum/common/utils/classList';
 import Tooltip from 'flarum/common/components/Tooltip';
@@ -28,7 +28,7 @@ export default class UploadButton extends Component {
     const shouldShowLabel = this.isMediaUploadButton || this.attrs.uploader.uploading;
 
     const button = (
-      <TextEditorButton
+      <Button
         className={classList([
           'Button',
           'hasIcon',
@@ -47,7 +47,7 @@ export default class UploadButton extends Component {
         <form>
           <input type="file" multiple={true} onchange={this.process.bind(this)} />
         </form>
-      </TextEditorButton>
+      </Button>
     );
 
     return shouldShowLabel ? button : <Tooltip text={buttonText}>{button}</Tooltip>;
