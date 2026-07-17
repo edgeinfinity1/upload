@@ -62,11 +62,20 @@ class Local extends Flysystem implements UploadAdapter
             $this->adapter->applyPathPrefix($this->meta['path'])
         );
 
+        $file->url = $this->hostName().'/'.ltrim($file->url, '/');
+    }
+
+    /**
+     * Get the public URL prefix for locally stored files.
+     */
+    public function hostName(): string
+    {
         $cdnUrl = $this->uploadConfig ? $this->uploadConfig->getLocalCdnUrl() : $this->settings->get('fof-upload.cdnUrl');
+
         if ($cdnUrl) {
-            $file->url = $cdnUrl.$file->url;
-        } else {
-            $file->url = $this->url->to('forum')->path(ltrim($file->url, '/'));
+            return rtrim($cdnUrl, '/');
         }
+
+        return rtrim($this->url->to('forum')->base(), '/');
     }
 }

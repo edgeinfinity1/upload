@@ -255,6 +255,21 @@ class FileRepositoryTest extends EnhancedTestCase
         file_put_contents($full, '');
     }
 
+    /**
+     * @test
+     */
+    public function local_file_url_uses_cdn_url_as_its_public_url_prefix(): void
+    {
+        $this->setting('fof-upload.cdnUrl', 'https://cdn.example.com/');
+
+        $file = $this->fileByUuid(self::UUID_URL_IN_CONTENT);
+
+        $this->assertEquals(
+            'https://cdn.example.com/assets/files/files/file-url.jpg',
+            $this->repo()->getUrlForFile($file)
+        );
+    }
+
     // -------------------------------------------------------------------------
     // matchPosts() — bulk CLI remapping
     // -------------------------------------------------------------------------

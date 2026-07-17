@@ -404,7 +404,7 @@ class FileRepository
     /**
      * Determine the hostname for the adapter used for this file.
      *
-     * Currently only available for AwsS3.
+     * Currently only available for AwsS3 and local storage.
      *
      * @param File $file
      *
@@ -415,7 +415,7 @@ class FileRepository
         if ($adapter instanceof AwsS3) {
             return $adapter->hostName();
         } elseif ($adapter instanceof Adapters\Local) {
-            return $this->url->to('forum')->path('assets/files');
+            return $adapter->hostName().'/assets/files';
         }
 
         return null;
@@ -441,6 +441,6 @@ class FileRepository
             return null;
         }
 
-        return $this->getHostnameForFile($file, $adapter).'/'.$file->path;
+        return rtrim($this->getHostnameForFile($file, $adapter), '/').'/'.ltrim($file->path, '/');
     }
 }

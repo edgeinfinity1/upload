@@ -82,6 +82,32 @@ class FileUploadTest extends EnhancedTestCase
     /**
      * @test
      */
+    public function local_upload_uses_cdn_url_as_its_public_url_prefix()
+    {
+        $this->setting('fof-upload.cdnUrl', 'https://cdn.example.com/');
+        $this->giveNormalUserUploadPermission();
+
+        $response = $this->send(
+            $this->request('POST', '/api/fof/upload', [
+                'authenticatedAs' => 2,
+                'multipart'       => [
+                    $this->uploadFile($this->fixtures('MilkyWay.jpg')),
+                ],
+            ])
+        );
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $json = json_decode($response->getBody()->getContents(), true);
+        $file = File::byUuid($json['data'][0]['attributes']['uuid'])->firstOrFail();
+
+        $this->assertStringStartsWith('https://cdn.example.com/assets/files/', $file->url);
+        $this->assertEquals($file->url, $json['data'][0]['attributes']['url']);
+    }
+
+    /**
+     * @test
+     */
     public function user_without_permission_cannot_upload_a_file()
     {
         $response = $this->send(
